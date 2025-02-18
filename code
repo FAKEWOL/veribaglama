@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anasayfa | Kitapistan</title>
+</head>
+<body>
+    <?php
+    $kitapAdi="Mustafa";
+    $kitapTürü="roman";
+    $SayfaSayisi= 13;
+    $KitapYazari="selam";
+    
+        $baglatni = @mysqli_connect("localhost","root","","DersDB");
+        if($baglatni === false){
+            die("Baglanti Hatasi".mysqli_connect_error());
+        }
+        echo"Bağlantı Başarılı"."<br>";
+
+        $sorgu = "INSERT INTO Kitaplar (KitapId,KitapAdi,KitapTuru,SayfaSayisi,KitapYazari)
+        Values ('','$kitapAdi','$kitapTürü','$SayfaSayisi','$KitapYazari')";
+        if(mysqli_query($baglatni,$sorgu)){
+            echo "Kayıt Başarıyla Yüklendi"."<br>"."-------------------------------"."<br>";
+            echo  "Kitap Adı:"." ".$kitapAdi."<br>";
+            echo  "Kitap Türü:"." ".$kitapTürü."<br>";
+            echo  "Sayfa Sayısı:"." ".$SayfaSayisi."<br>";
+            echo  "Kİtap Yazarı:"." ".$KitapYazari."<br>";
+        }
+        else{
+            echo "Hata:".mysqli_errno($baglatni);
+        }
+        mysqli_close($baglatni);
+    ?>
+</body>
+</html>
