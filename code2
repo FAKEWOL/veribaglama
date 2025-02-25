@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Anasayfa | Kitapistan</title>
+</head>
+<body>
+
+
+
+<div class="php">
+        <input type="text" name="" form="" style="background-color: white; border:none;font-size:22px;border-radius:6px;margin-top:2px">
+        <br>
+        <input type="text" name="" form="" style="background-color: white; border:none;font-size:22px;border-radius:6px;margin-top:2px">
+        <br>
+        <input type="text" name="" form="" style="background-color: white; border:none;font-size:22px;border-radius:6px;margin-top:2px">
+        <br>
+        <input type="text" name="" form="" style="background-color: white; border:none;font-size:22px;border-radius:6px;margin-top:2px">
+        <br>
+        <button style="background-color: white;font-size:16px;border:none;padding:12px;border-radius:10px;margin-left:85px;margin-top:6px">Kayıt Yap</button>
+        <br>
+    </div>
+    <br>
+
+    
+    <?php
+    $kitapAdi="italy";
+    $kitapTürü="roman";
+    $SayfaSayisi= 13;
+    $KitapYazari="selam";
+    
+        $baglatni = @mysqli_connect("localhost","root","","DersDB");
+        if($baglatni === false){
+            die("Baglanti Hatasi".mysqli_connect_error());
+        }
+        echo"Bağlantı Başarılı"."<br>";
+
+        $sorgu = "INSERT INTO Kitaplar (KitapId,KitapAdi,KitapTuru,SayfaSayisi,KitapYazari)
+        Values ('','$kitapAdi','$kitapTürü','$SayfaSayisi','$KitapYazari')";
+        if(mysqli_query($baglatni,$sorgu)){
+            echo "Kayıt Başarıyla Yüklendi"."<br>"."-------------------------------"."<br>";
+            echo  "Kitap Adı:"." ".$kitapAdi."<br>";
+            echo  "Kitap Türü:"." ".$kitapTürü."<br>";
+            echo  "Sayfa Sayısı:"." ".$SayfaSayisi."<br>";
+            echo  "Kitap Yazarı:"." ".$KitapYazari."<br>";
+            echo  "-------------------------------"."<br>";
+        }
+        else
+        {
+            echo "Hata:".mysqli_errno($baglatni);
+        }
+    ?> 
+    
+    <?php
+         $sorgu ="SELECT * FROM Kitaplar";
+         if($veri = mysqli_query($baglatni, $sorgu)){
+            while($kayit = mysqli_fetch_array($veri))
+            if(mysqli_num_rows($veri) > 0){
+            echo"<table>";
+            echo $kayit["KitapId"] ."<br>";
+            echo $kayit["KitapAdi"] ."<br>";
+            echo $kayit["KitapTuru"] ."<br>";
+            echo $kayit["SayfaSayisi"] ."<br>";
+            echo $kayit["KitapYazari"] . "<br>";
+            echo"---------------------------------";
+            echo "<th>";
+            }        
+        }    
+    ?>
+</body>
+</html>
